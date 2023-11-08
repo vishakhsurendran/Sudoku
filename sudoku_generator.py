@@ -54,7 +54,7 @@ class SudokuGenerator:
 	
 	Return: boolean
     '''
-    def valid_in_row(self, row, num):
+    def valid_in_row(self, row, num):  # Vishakh S. 
         pass
 
     '''
@@ -67,7 +67,7 @@ class SudokuGenerator:
 	
 	Return: boolean
     '''
-    def valid_in_col(self, col, num):
+    def valid_in_col(self, col, num):  # Vishakh S. 
         pass
 
     '''
@@ -82,7 +82,7 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def valid_in_box(self, row_start, col_start, num):
+    def valid_in_box(self, row_start, col_start, num):  # Vishakh S. 
         pass
     
     '''
