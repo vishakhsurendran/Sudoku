@@ -22,7 +22,7 @@ class SudokuGenerator:
 	Return:
 	None
     '''
-    def __init__(self, row_length, removed_cells):
+    def __init__(self, row_length, removed_cells):  # Phoebe H.
         pass
 
     '''
@@ -31,7 +31,7 @@ class SudokuGenerator:
 	Parameters: None
 	Return: list[list]
     '''
-    def get_board(self):
+    def get_board(self):  # Phoebe H.
         pass
 
     '''
@@ -41,7 +41,7 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-    def print_board(self):
+    def print_board(self):  # Phoebe H.
         pass
 
     '''
