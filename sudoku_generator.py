@@ -23,7 +23,11 @@ class SudokuGenerator:
 	None
     '''
     def __init__(self, row_length, removed_cells):  # Phoebe H.
-        pass
+        self.row_length = row_length
+        self.removed_cells = removed_cells
+        self.board = [[0 for cell in range(self.row_length)] for row in range(self.row_length)]
+          # 2D list initialized to a list containing row_length lists each containing row_length 0s
+        self.box_length = math.sqrt(self.row_length)
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -32,7 +36,7 @@ class SudokuGenerator:
 	Return: list[list]
     '''
     def get_board(self):  # Phoebe H.
-        pass
+        return self.board
 
     '''
 	Displays the board to the console
@@ -42,7 +46,16 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):  # Phoebe H.
-        pass
+        print("   ", end="")
+        for num in range(self.row_length):  # print column numbers across the top
+            print(num, end=" ")
+        print()
+        print("   _________________")
+        for index, row in enumerate(self.board):  # print each row
+            print(index, end="| ")  # print row number next to each row
+            for cell in row:  # print individual element in row
+                print(cell, end=" ")
+            print()
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -56,7 +69,7 @@ class SudokuGenerator:
     '''
     def valid_in_row(self, row, num):  # Vishakh S. 
         for i in range(0, 9):  # iterates through length of row
-            if board[row][i] == num:  # if statement checks each value in given row
+            if self.board[row][i] == num:  # if statement checks each value in given row
                 return False  # if number is present in row, returns False
         return True  # returns True if number is not found
 
@@ -72,7 +85,7 @@ class SudokuGenerator:
     '''
     def valid_in_col(self, col, num):  # Vishakh S. 
         for i in range(0, 9):  # iterates through length of column
-            if board[i][col] == num:  # if statement checks each value in given column
+            if self.board[i][col] == num:  # if statement checks each value in given column
                 return False  # returns False if number is found in column
         return True  # returns True if number is not found
 
@@ -91,7 +104,7 @@ class SudokuGenerator:
     def valid_in_box(self, row_start, col_start, num):  # Vishakh S. 
         for i in range(0, 3):  # iterates through each row value in box
             for j in range(0, 3):  # iterates through each col in row
-                if board[i + row_start][j + col_start] == num:  # if statement checks for number in box
+                if self.board[i + row_start][j + col_start] == num:  # if statement checks for number in box
                     return False  # returns False if number is found in box
         return True  # returns True if number is not in box
     
