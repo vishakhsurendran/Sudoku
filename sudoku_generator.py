@@ -119,8 +119,8 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num): # Samuel A.
-        row_box = row - row % 3 # Finds starting indices of the box containing row value
-        col_box = col - col % 3 # Finds starting indices of the box containing col value
+        row_box = row - row % int(self.box_length) # Finds starting indices of the box containing row value
+        col_box = col - col % int(self.box_length) # Finds starting indices of the box containing col value
 
         # Returns true if ALL conditions are true: valid_in_box, valid_in_row, and valid_in_col
         return self.valid_in_box(row_box, col_box, num) and self.valid_in_row(row, num) and self.valid_in_col(col, num)
@@ -142,8 +142,8 @@ class SudokuGenerator:
         index = 0 # Used to track positions
 
         # Assigns numbers to cells
-        for i in range(3):
-            for j in range(3):
+        for i in range(int(self.box_length)):
+            for j in range(int(self.box_length)):
                 self.board[row_start + i][col_start + j] = nums_list[index]
                 index += 1
     
