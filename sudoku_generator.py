@@ -144,7 +144,7 @@ class SudokuGenerator:
         # Assigns numbers to cells
         for i in range(3):
             for j in range(3):
-                self.board[row_start + 1][col_start + j] = num[index]
+                self.board[row_start + 1][col_start + j] = nums_list[index]
                 index += 1
     
     '''
@@ -156,6 +156,7 @@ class SudokuGenerator:
     '''
     def fill_diagonal(self): # Samuel A.
         for i in range(0, self.row_length, 3): # Iterates by steps of 3 to only fill once per box
+	    diagonal_row = i # Sets i value to diagonal_row
             diagonal_col = diagonal_row # Uses same column value as row value as to remain on main diagonal
             self.fill_box(diagonal_row, diagonal_col) # Fills once per step
     '''
