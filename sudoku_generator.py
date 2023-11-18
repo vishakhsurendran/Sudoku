@@ -136,7 +136,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start): # Samuel A.
-        nums_list = list(range(1, 10)) # Creates list of numbers 1 to 9
+        nums_list = list(range(1, self.row_length + 1)) # Creates list of numbers 1 to 9
         random.shuffle(nums_list) # Randomizes elements in list to ensure cell values are randomized when list elements are assigned to cells
 
         index = 0 # Used to track positions
@@ -155,7 +155,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self): # Samuel A.
-        for i in range(0, self.row_length, 3): # Iterates by steps of 3 to only fill once per box
+        for i in range(0, self.row_length, int(self.box_length)): # Iterates by steps of 3 to only fill once per box
             diagonal_row = i # Sets i value to diagonal_row
             diagonal_col = diagonal_row # Uses same column value as row value as to remain on main diagonal
             self.fill_box(diagonal_row, diagonal_col) # Fills once per step
