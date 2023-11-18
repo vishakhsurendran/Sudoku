@@ -118,8 +118,12 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def is_valid(self, row, col, num):
-        pass
+    def is_valid(self, row, col, num): # Samuel A.
+        row_box = row - row % 3 # Finds starting indices of the box containing row value
+        col_box = col - col % 3 # Finds starting indices of the box containing col value
+
+        # Returns true if ALL conditions are true: valid_in_box, valid_in_row, and valid_in_col
+        return self.valid_in_box(row_box, col_box, num) and self.valid_in_row(row, num) and self.valid_in_col(col, num)
 
     '''
     Fills the specified 3x3 box with values
@@ -131,8 +135,17 @@ class SudokuGenerator:
 
 	Return: None
     '''
-    def fill_box(self, row_start, col_start):
-        pass
+    def fill_box(self, row_start, col_start): # Samuel A.
+        nums_list = list(range(1, 10)) # Creates list of numbers 1 to 9
+        random.shuffle(nums_list) # Randomizes elements in list to ensure cell values are randomized when list elements are assigned to cells
+
+        index = 0 # Used to track positions
+
+        # Assigns numbers to cells
+        for i in range(3):
+            for j in range(3):
+                self.board[row_start + 1][col_start + j] = num[index]
+                index += 1
     
     '''
     Fills the three boxes along the main diagonal of the board
@@ -141,9 +154,10 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-    def fill_diagonal(self):
-        pass
-
+    def fill_diagonal(self): # Samuel A.
+        for i in range(0, self.row_length, 3): # Iterates by steps of 3 to only fill once per box
+            diagonal_col = diagonal_row # Uses same column value as row value as to remain on main diagonal
+            self.fill_box(diagonal_row, diagonal_col) # Fills once per step
     '''
     DO NOT CHANGE
     Provided for students
