@@ -160,7 +160,7 @@ class SudokuGenerator:
             diagonal_col = diagonal_row # Uses same column value as row value as to remain on main diagonal
             self.fill_box(diagonal_row, diagonal_col) # Fills once per step
 
-'''
+    '''
     DO NOT CHANGE
     Provided for students
     Fills the remaining cells of the board
