@@ -223,8 +223,14 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-    def remove_cells(self):
-        pass
+    def remove_cells(self):  # Phoebe H.
+        empty_cells = 0  # No cells empty yet
+        while empty_cells < self.removed_cells:  # Assign 0 to cells until empty cells = removed cells
+            row = random.randrange(0, self.row_length)  # Generate random row number
+            col = random.randrange(0, self.row_length)  # Generate random column number
+            if self.board[row][col] != 0:  # Assign 0 to cell if it is not already 0
+                self.board[row][col] = 0
+                empty_cells += 1  # Count how many cells have been emptied
 
 '''
 DO NOT CHANGE
