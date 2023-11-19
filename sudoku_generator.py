@@ -27,7 +27,7 @@ class SudokuGenerator:
         self.removed_cells = removed_cells
         self.board = [[0 for cell in range(self.row_length)] for row in range(self.row_length)]
           # 2D list initialized to a list containing row_length lists each containing row_length 0s
-        self.box_length = math.sqrt(self.row_length)
+        self.box_length = int(math.sqrt(self.row_length))
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -142,8 +142,8 @@ class SudokuGenerator:
         index = 0 # Used to track positions
 
         # Assigns numbers to cells
-        for i in range(int(self.box_length)):
-            for j in range(int(self.box_length)):
+        for i in range(self.box_length):
+            for j in range(self.box_length):
                 self.board[row_start + i][col_start + j] = nums_list[index]
                 index += 1
     
