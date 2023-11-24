@@ -19,4 +19,16 @@ class Board:
                 arr.append(cell)
             self.cells.append(arr)
         self.selected = None
-    pass
+
+    def update_board(self):  # Phoebe H.
+        for row in self.board:  # iterate through each row of 2D board
+            for col in row:  # iterate through each column in row
+                cell_2d_board = self.board[row][col]  # find cell in 2D board
+                cell_object = self.cells[row][col]  # find corresponding Cell object in self.cells
+                if cell_2d_board != cell_object.value:  # if 2D board cell differs from Cell object's value attribute,
+                    cell_2d_board = cell_object.value  # update 2D board cell
+
+    def check_board(self):  # Phoebe H.
+        if self.board == self.correct_answer:  # if 2D board matches correct Sudoku board,
+            return True  # return True
+        return False  # otherwise, return False

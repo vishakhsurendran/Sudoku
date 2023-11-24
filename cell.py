@@ -2,7 +2,7 @@ import pygame
 from constants import *
 
 
-class Cell:
+class Cell:  # Phoebe H.
     def __init__(self, value, row, col, screen):  # Cell class constructor
         self.value = value
         self.sketched_value = 0  # initialize user-entered value to null object
@@ -20,12 +20,12 @@ class Cell:
     def draw(self):
         cell_font = pygame.font.Font(None, CELL_FONT)  # set font for numbers in cells
 
-        if self.value:  # cell has provided value
-            provided_number_surf = cell_font.render(str(self.value), 0, PROVIDED_NUMBER_COLOR)  # create number surface
-            provided_number_rect = provided_number_surf.get_rect(  # create rectangle
+        if self.value:  # cell has value
+            number_surf = cell_font.render(str(self.value), 0, PROVIDED_NUMBER_COLOR)  # create number surface
+            number_rect = number_surf.get_rect(  # create rectangle
                 center=(self.col * CELL_SIZE + CELL_SIZE // 2, self.row * CELL_SIZE + CELL_SIZE // 2)  # center of cell
             )
-            self.screen.blit(provided_number_surf, provided_number_rect)  # draw number to screen
+            self.screen.blit(number_surf, number_rect)  # draw number to screen
 
         elif self.sketched_value:  # cell has sketched value
             sketched_number_surf = cell_font.render(str(self.sketched_value), 0, SKETCHED_NUMBER_COLOR)  # create number surface
