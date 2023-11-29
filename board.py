@@ -20,23 +20,51 @@ class Board:
             self.cells.append(arr)
         self.selected = None
 
-    def draw(self):
-        pass
+    def draw(self): # Samuel A.
+        # Sudoku grid lines
+        for col in range(9):
+            pygame.draw.line(self.screen, COLOR, [(col * CELL_SIZE, 0), (col * CELL_SIZE, HEIGHT)], 4)
+        for row in range(9):
+            pygame.draw.line(self.screen, COLOR, [(0, row * CELL_SIZE), (WIDTH, row * CELL_SIZE)], 4)
+
+        # Bolded sudoku grid lines representing boxes
+        for col in range(1, 4):
+            pygame.draw.lines(self.screen, COLOR, False, [(col * CELL_SIZE, 0), (col * CELL_SIZE, HEIGHT)], 1)
+        for row in range(1, 4):
+            pygame.draw.lines(self.screen, COLOR, False, [(0, row * CELL_SIZE), (WIDTH, row * CELL_SIZE)], 1)
+
+        # Draws cells
+        for col in range(9):
+            for row in range(9):
+                self.cells[row][col].draw()
 
     def select(self, row, col):  # Vishakh S.
         self.selected = self.cells[row][col]  # selects new cell using row and col values
 
-    def click(self, x, y):
-        pass
+    def click(self, x, y): # Samuel A.
+        # Finds row and col values from (x, y) coordinates
+        col = x // CELL_SIZE
+        row = y // CELL_SIZE
+        if 0 <= row < 9 and 0 <= col < 9:
+            return row, col
+        else:
+            return None
+            
+    def clear(self): # Samuel A.
+        # Clears selected and sketched values
+        if self.selected:
+            self.selected.set_cell_value(0)
+            self.selected.set_sketched_value(0)
 
-    def clear(self):
-        pass
+    def sketch(self, value): # Samuel A.
+        # Sets sketched value to user entered sketch value
+        if self.selected:
+            self.selected.set_sketched_value(value)
 
-    def sketch(self, value):
-        pass
-
-    def place_number(self, value):
-        pass
+    def place_number(self, value): # Samuel A.
+        # Sets value to user entered value
+        if self.selected:
+            self.selected.set_cell_value(value)
 
     def reset_to_original(self):  # Vishakh S.
         for row in range(9):  # iterates through rows in Sudoku board
