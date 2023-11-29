@@ -12,6 +12,7 @@ class Board:
         self.screen = screen
         self.difficulty = difficulty
         self.cells = []
+        self.correct_answer = SudokuGenerator.generate_sudoku()
         for row in range(9):
             arr = []
             for col in range(9):
