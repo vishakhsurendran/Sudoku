@@ -12,27 +12,29 @@ class Board:
         self.screen = screen
         self.difficulty = difficulty
         self.cells = []
-        self.correct_answer = generate_sudoku(9, difficulty)
         for row in range(9):
             arr = []
             for col in range(9):
                 cell = Cell(0, row, col, screen)
                 arr.append(cell)
             self.cells.append(arr)
+        sudoku = generate_sudoku(9, difficulty)  # tuple - solution at index 0 and board with removed cells at index 1
+        self.correct_answer = sudoku[0]
+        self.board = sudoku[1]
         self.selected = None
 
     def draw(self): # Samuel A.
         # Sudoku grid lines
         for col in range(9):
-            pygame.draw.line(self.screen, TEXT_COLOR, (col * CELL_SIZE, 0), (col * CELL_SIZE, HEIGHT), 4)
+            pygame.draw.line(self.screen, TEXT_COLOR, (col * CELL_SIZE, 0), (col * CELL_SIZE, HEIGHT), 1)
         for row in range(9):
-            pygame.draw.line(self.screen, TEXT_COLOR, (0, row * CELL_SIZE), (WIDTH, row * CELL_SIZE), 4)
+            pygame.draw.line(self.screen, TEXT_COLOR, (0, row * CELL_SIZE), (WIDTH, row * CELL_SIZE), 1)
 
         # Bolded sudoku grid lines representing boxes
         for col in range(1, 4):
-            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(col * CELL_SIZE, 0), (col * CELL_SIZE, HEIGHT)], 1)
+            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(col * CELL_SIZE * 3, 0), (col * CELL_SIZE * 3, HEIGHT)], 4)
         for row in range(1, 4):
-            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(0, row * CELL_SIZE), (WIDTH, row * CELL_SIZE)], 1)
+            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(0, row * CELL_SIZE * 3), (WIDTH, row * CELL_SIZE * 3)], 4)
 
         # Draws cells
         for col in range(9):
