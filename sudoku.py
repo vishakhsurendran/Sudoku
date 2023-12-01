@@ -43,9 +43,9 @@ def draw_game_start():
     select_rect = select_surf.get_rect(center=(WIDTH // 2, HEIGHT // 2))
     screen.blit(select_surf, select_rect)
 
-    easy_button = Button(65, 500, 120, 50, BUTTON_COLOR, "EASY", TEXT_COLOR, 50)
-    medium_button = Button(220, 500, 160, 50, BUTTON_COLOR, "MEDIUM", TEXT_COLOR, 50)
-    hard_button = Button(420, 500, 120, 50, BUTTON_COLOR, "HARD", TEXT_COLOR, 50)
+    easy_button = Button(65, 500, 120, 50, BUTTON_COLOR, "EASY", BUTTON_TEXT_COLOR, 50)
+    medium_button = Button(220, 500, 160, 50, BUTTON_COLOR, "MEDIUM", BUTTON_TEXT_COLOR, 50)
+    hard_button = Button(420, 500, 120, 50, BUTTON_COLOR, "HARD", BUTTON_TEXT_COLOR, 50)
     easy_button.draw(screen)
     medium_button.draw(screen)
     hard_button.draw(screen)
@@ -70,25 +70,29 @@ def draw_game_over(winner):
     screen.fill(BG_COLOR)
     game_over_font = pygame.font.Font(None, GAME_OVER_FONT)
     option_font = pygame.font.Font(None, RESTART_FONT)
+
     if winner != 0:
         end_text = "Game Won!"
+        exit_button = Button(240, 400, 110, 60, BUTTON_COLOR, "EXIT", BUTTON_TEXT_COLOR, 50)
+        exit_button.draw(screen)
+        end_surf = game_over_font.render(end_text, 0, TEXT_COLOR)
+        end_rect = end_surf.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 200))
+        screen.blit(end_surf, end_rect)
+        return exit_button
     else:
         end_text = "Game Over :("
-
-    end_surf = game_over_font.render(end_text, 0, TEXT_COLOR)
-    end_rect = end_surf.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 200))
-    screen.blit(end_surf, end_rect)
-
-    restart_text = "Restart"
-    restart_surf = option_font.render(restart_text, 0, TEXT_COLOR)
-    restart_rect = restart_surf.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-    screen.blit(restart_surf, restart_rect)
+        restart_button = Button(190, 400, 200, 60, BUTTON_COLOR, "RESTART", BUTTON_TEXT_COLOR, 50)
+        restart_button.draw(screen)
+        end_surf = game_over_font.render(end_text, 0, TEXT_COLOR)
+        end_rect = end_surf.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 200))
+        screen.blit(end_surf, end_rect)
+        return restart_button
 
 
 def main():
 
     player = 1
-    winner = 0
+    winner = 1
     game_start = False
     game_over = False
     difficulty = None
@@ -114,10 +118,18 @@ def main():
                 draw_game_in_progress(WIDTH, HEIGHT, screen, difficulty)
                 pygame.display.update()
 
-        if game_over:
-            pygame.display.update()
-            pygame.time.delay(1000)
-            draw_game_over(winner)
+            if game_over:
+                pygame.display.update()
+                pygame.time.delay(1000)
+                button = draw_game_over(winner)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = event.pos()
+                    if button.is_clicked(x, y) and winner != 0:
+                        pygame.quit()
+                        sys.exit()
+                    elif button.is_clicked(x, y):
+                        draw_game_start()
+
         # for event in pygame.event.get():
             # if event.type == pygame.MOUSEBUTTONDOWN and game_over:
             # x, y = event.pos
