@@ -57,6 +57,8 @@ def draw_game_in_progress(width, height, screen, difficulty):
     screen.fill(BG_COLOR)
     board = Board(width, (height - 100), screen, difficulty)
     board.draw()
+    selected_row = 0
+    selected_col = 0
 
     reset_button = Button(50, 600, 130, 60, BUTTON_COLOR, "RESET", BUTTON_TEXT_COLOR, 50)
     restart_button = Button(205, 600, 200, 60, BUTTON_COLOR, "RESTART", BUTTON_TEXT_COLOR, 50)
@@ -64,6 +66,88 @@ def draw_game_in_progress(width, height, screen, difficulty):
     reset_button.draw(screen)
     restart_button.draw(screen)
     exit_button.draw(screen)
+
+
+    #while the board is not full, keep looking for inputs
+    while not board.is_full():
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            # mouse button inputs
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                # sets value of click to board.click, value is None if not on board
+                click = board.click(x, y)
+
+                if reset_button.is_clicked(x, y):
+                    board.reset_to_original()
+                # BUGGED, FIX LATER
+                if restart_button.is_clicked(x, y):
+                    draw_game_start()
+                if exit_button.is_clicked(x, y):
+                    quit()
+                    sys.exit()
+
+                #if click is on board
+                if click is not None:
+                    #sets the row and col to the row and column clicked on
+                    selected_row, selected_col = click
+
+            # key press inputs
+            if event.type == pygame.KEYDOWN:
+                # moves cells down, up, also makes sure it doesn't go out of bounds
+                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    if selected_row < 8:
+                        selected_row += 1
+                    else:
+                        selected_row = 8
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
+                    if selected_row > 0:
+                        selected_row -= 1
+                    else:
+                        selected_row = 0
+                #moves cells right, left, prevents out of bounds
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    if selected_col < 8:
+                        selected_col += 1
+                    else:
+                        selected_col = 8
+                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    if selected_col > 0:
+                        selected_col -= 1
+                    else:
+                        selected_col = 0
+
+                # looks for number inputs, which will sketch the value
+                #sorry its a bit messy, it just checks for the number keys 1-9
+                if event.key == pygame.K_1 or event.key == pygame.K_2 or event.key == pygame.K_3 or event.key == pygame.K_4 or event.key == pygame.K_5 or event.key == pygame.K_6 or event.key == pygame.K_7 or event.key == pygame.K_8 or event.key == pygame.K_9:
+                    board.sketch(int(pygame.key.name(event.key)))
+
+                # pressing enter key will "submit" the sketched value on that cell
+                if event.key == pygame.K_RETURN:
+                    board.place_number(board.selected.sketched_value)
+
+                # clears the selected cell
+                if event.key == pygame.K_BACKSPACE:
+                    board.clear()
+
+
+        # updates the board again
+        board.select(selected_row, selected_col)
+        screen.fill(BG_COLOR)
+        board.draw()
+        reset_button.draw(screen)
+        restart_button.draw(screen)
+        exit_button.draw(screen)
+        board.update_board()
+
+        pygame.display.update()
+
+    #returns True/False depending on if the board is correct
+    return board.check_board()
+
 
 
 def draw_game_over(winner):
@@ -93,6 +177,7 @@ def main():
 
     player = 1
     winner = 1
+    win = True
     game_start = False
     game_over = False
     difficulty = None
@@ -107,16 +192,21 @@ def main():
                 x, y = event.pos
                 row = y // CELL_SIZE
                 col = x // CELL_SIZE
-                while difficulty is None:
-                    if easy.is_clicked(x, y):
-                        difficulty = 30
-                    elif medium.is_clicked(x, y):
-                        difficulty = 40
-                    elif hard.is_clicked(x, y):
-                        difficulty = 50
+                if easy.is_clicked(x, y):
+                    difficulty = 30
+                elif medium.is_clicked(x, y):
+                    difficulty = 40
+                elif hard.is_clicked(x, y):
+                    difficulty = 50
 
-                draw_game_in_progress(WIDTH, HEIGHT, screen, difficulty)
+
+            if difficulty:
+                win = draw_game_in_progress(WIDTH, HEIGHT, screen, difficulty)
+                game_over = True
                 pygame.display.update()
+
+            if not win:
+                winner = 0
 
             if game_over:
                 pygame.display.update()

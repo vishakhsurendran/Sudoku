@@ -12,16 +12,26 @@ class Board:
         self.screen = screen
         self.difficulty = difficulty
         self.cells = []
+        '''   instead of setting all the values of cells to 0
         for row in range(9):
             arr = []
             for col in range(9):
                 cell = Cell(0, row, col, screen)
                 arr.append(cell)
             self.cells.append(arr)
+        '''
         sudoku = generate_sudoku(9, difficulty)  # tuple - solution at index 0 and board with removed cells at index 1
         self.correct_answer = sudoku[0]
         self.board = sudoku[1]
-        self.selected = None
+
+        #set the cells to the value in board - SJ
+        for row in range(9):
+            arr = []
+            for col in range(9):
+                cell = Cell(self.board[row][col], row, col, screen)
+                arr.append(cell)
+            self.cells.append(arr)
+        self.selected = self.cells[0][0] #  changing self.selected to the first cell as default
 
     def draw(self): # Samuel A.
         # Sudoku grid lines
@@ -42,7 +52,10 @@ class Board:
                 self.cells[row][col].draw()
 
     def select(self, row, col):  # Vishakh S.
+        self.selected.selected = False
         self.selected = self.cells[row][col]  # selects new cell using row and col values
+        self.selected.selected = True
+        # now select also changes the variable select of the cell
 
     def click(self, x, y): # Samuel A.
         # Finds row and col values from (x, y) coordinates
@@ -84,13 +97,17 @@ class Board:
     def is_full(self):  # Vishakh S.
         for row in self.cells:  # iterates through rows in self.cells
             for col in row:  # iterate through each column in row
-                if col == 0:  # if column value is 0
+                if col.value == 0:  # if column value is 0  //   you forgot the .value, otherwise always returns True -SJ
                     return False  # returns False to indicate board is not full
         return True  # returns True if no empty cell is found
 
     def update_board(self):  # Phoebe H.
+        '''       need to use range, since you're using row and col as indices
         for row in self.board:  # iterate through each row of 2D board
             for col in row:  # iterate through each column in row
+        '''
+        for row in range(len(self.board)):
+            for col in range(len(self.board[row])):
                 cell_2d_board = self.board[row][col]  # find cell in 2D board
                 cell_object = self.cells[row][col]  # find corresponding Cell object in self.cells
                 if cell_2d_board != cell_object.value:  # if 2D board cell differs from Cell object's value attribute,
