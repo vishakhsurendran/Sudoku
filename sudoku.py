@@ -58,9 +58,9 @@ def draw_game_in_progress(width, height, screen, difficulty):
     board = Board(width, (height - 100), screen, difficulty)
     board.draw()
 
-    reset_button = Button(80, 50, 130, 50, BUTTON_COLOR, "RESET", TEXT_COLOR, 50)
-    restart_button = Button(200, 50, 130, 50, BUTTON_COLOR, "RESTART", TEXT_COLOR, 50)
-    exit_button = Button(550, 50, 130, 50, BUTTON_COLOR, "EXIT", TEXT_COLOR, 50)
+    reset_button = Button(50, 600, 130, 60, BUTTON_COLOR, "RESET", BUTTON_TEXT_COLOR, 50)
+    restart_button = Button(205, 600, 200, 60, BUTTON_COLOR, "RESTART", BUTTON_TEXT_COLOR, 50)
+    exit_button = Button(430, 600, 110, 60, BUTTON_COLOR, "EXIT", BUTTON_TEXT_COLOR, 50)
     reset_button.draw(screen)
     restart_button.draw(screen)
     exit_button.draw(screen)
