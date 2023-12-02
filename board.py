@@ -106,8 +106,8 @@ class Board:
         for row in self.board:  # iterate through each row of 2D board
             for col in row:  # iterate through each column in row
         '''
-        for row in range(len(self.board)):
-            for col in range(len(self.board[row])):
+        for row in range(len(self.board)):  # iterate through each row of 2D board
+            for col in range(len(self.board[row])):  # iterate through each column in row
                 cell_2d_board = self.board[row][col]  # find cell in 2D board
                 cell_object = self.cells[row][col]  # find corresponding Cell object in self.cells
                 if cell_2d_board != cell_object.value:  # if 2D board cell differs from Cell object's value attribute,

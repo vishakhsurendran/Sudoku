@@ -55,7 +55,7 @@ def draw_game_start():
 
 def draw_game_in_progress(width, height, screen, difficulty):
     screen.fill(BOARD_COLOR)
-    screen.fill(BG_COLOR, (0, 540, WIDTH, 160))
+    screen.fill(BG_COLOR, (0, CELL_SIZE * 9, WIDTH, 160))
     board = Board(width, (height - 100), screen, difficulty)
     board.draw()
     selected_row = 0
