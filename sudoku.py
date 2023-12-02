@@ -1,4 +1,5 @@
-import pygame, sys
+import pygame
+import sys
 from constants import *
 from board import Board
 from sudoku_generator import *
