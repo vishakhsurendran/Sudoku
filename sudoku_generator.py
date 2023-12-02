@@ -254,7 +254,6 @@ def generate_sudoku(size, removed):
     sudoku.fill_values()
     board = sudoku.get_board()
     solution = [row[:] for row in board]
-    print(solution)
     sudoku.remove_cells()
     board = sudoku.get_board()
     return (solution, board)
