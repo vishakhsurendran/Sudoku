@@ -23,6 +23,7 @@ class Board:
         sudoku = generate_sudoku(9, difficulty)  # tuple - solution at index 0 and board with removed cells at index 1
         self.correct_answer = sudoku[0]
         self.board = sudoku[1]
+        self.original = [row[:] for row in self.board]
 
         #set the cells to the value in board - SJ
         for row in range(9):
@@ -59,8 +60,8 @@ class Board:
 
     def click(self, x, y): # Samuel A.
         # Finds row and col values from (x, y) coordinates
-        col = x // CELL_SIZE
-        row = y // CELL_SIZE
+        col = int(x // CELL_SIZE)
+        row = int(y // CELL_SIZE)
         if 0 <= row < 9 and 0 <= col < 9:
             return row, col
         else:
@@ -86,7 +87,7 @@ class Board:
         for row in range(9):  # iterates through rows in Sudoku board
             for col in range(9):  # iterates through cols in Sudoku board
                 cell = self.cells[row][col]  # assigns current value to cell variable
-                original = self.board[row][col]  # gets original value from original board
+                original = self.original[row][col]  # gets original value from original board
 
                 if original != 0:  # checks if original value is not 0
                     cell.set_cell_value(original)  # sets to corresponding digit
@@ -111,7 +112,7 @@ class Board:
                 cell_2d_board = self.board[row][col]  # find cell in 2D board
                 cell_object = self.cells[row][col]  # find corresponding Cell object in self.cells
                 if cell_2d_board != cell_object.value:  # if 2D board cell differs from Cell object's value attribute,
-                    cell_2d_board = cell_object.value  # update 2D board cell
+                    self.board[row][col] = cell_object.value  # update 2D board cell
 
     def find_empty(self):  # Vishakh S.
         for row in range(9):  # iterates through rows in Sudoku board
