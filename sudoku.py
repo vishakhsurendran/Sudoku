@@ -131,7 +131,7 @@ def draw_game_in_progress(width, height, screen, difficulty):
                     board.place_number(board.selected.sketched_value)
 
                 # clears the selected cell
-                if event.key == pygame.K_BACKSPACE:
+                if event.key == pygame.K_BACKSPACE and board.original[selected_row][selected_col] == 0:  # the and condition was missing here -PH
                     board.clear()
 
         # updates the board again
