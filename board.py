@@ -5,7 +5,7 @@ from cell import Cell
 
 
 class Board:
-    def __init__(self, width, height, screen, difficulty): # Samuel A.
+    def __init__(self, width, height, screen, difficulty):  # Samuel A.
         self.width = width
         self.height = height
         self.screen = screen
@@ -24,16 +24,16 @@ class Board:
         self.board = sudoku[1]
         self.original = [row[:] for row in self.board]
 
-        #set the cells to the value in board - SJ
+        # set the cells to the value in board - SJ
         for row in range(9):
             arr = []
             for col in range(9):
                 cell = Cell(self.board[row][col], row, col, screen)
                 arr.append(cell)
             self.cells.append(arr)
-        self.selected = self.cells[0][0] #  changing self.selected to the first cell as default
+        self.selected = self.cells[0][0]  # changing self.selected to the first cell as default
 
-    def draw(self): # Samuel A.
+    def draw(self):  # Samuel A.
         # Sudoku grid lines
         for col in range(9):
             pygame.draw.line(self.screen, TEXT_COLOR, (col * CELL_SIZE, 0), (col * CELL_SIZE, HEIGHT), 1)
@@ -42,9 +42,11 @@ class Board:
 
         # Bolded sudoku grid lines representing boxes
         for col in range(1, 4):
-            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(col * CELL_SIZE * 3, 0), (col * CELL_SIZE * 3, HEIGHT)], 4)
+            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(col * CELL_SIZE * 3, 0),
+                                                               (col * CELL_SIZE * 3, HEIGHT)], 4)
         for row in range(1, 4):
-            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(0, row * CELL_SIZE * 3), (WIDTH, row * CELL_SIZE * 3)], 4)
+            pygame.draw.lines(self.screen, TEXT_COLOR, False, [(0, row * CELL_SIZE * 3),
+                                                               (WIDTH, row * CELL_SIZE * 3)], 4)
 
         # Draws cells
         for col in range(9):
@@ -57,7 +59,7 @@ class Board:
         self.selected.selected = True
         # now select also changes the variable select of the cell
 
-    def click(self, x, y): # Samuel A.
+    def click(self, x, y):  # Samuel A.
         # Finds row and col values from (x, y) coordinates
         col = int(x // CELL_SIZE)
         row = int(y // CELL_SIZE)
@@ -66,18 +68,18 @@ class Board:
         else:
             return None
             
-    def clear(self): # Samuel A.
+    def clear(self):  # Samuel A.
         # Clears selected and sketched values
         if self.selected:
             self.selected.set_cell_value(0)
             self.selected.set_sketched_value(0)
 
-    def sketch(self, value): # Samuel A.
+    def sketch(self, value):  # Samuel A.
         # Sets sketched value to user entered sketch value
         if self.selected:
             self.selected.set_sketched_value(value)
 
-    def place_number(self, value): # Samuel A.
+    def place_number(self, value):  # Samuel A.
         # Sets value to user entered value
         if self.selected:
             self.selected.set_cell_value(value)
@@ -97,7 +99,7 @@ class Board:
     def is_full(self):  # Vishakh S.
         for row in self.cells:  # iterates through rows in self.cells
             for col in row:  # iterate through each column in row
-                if col.value == 0:  # if column value is 0  //   you forgot the .value, otherwise always returns True -SJ
+                if col.value == 0:  # if column value is 0 // you forgot the .value, otherwise always returns True -SJ
                     return False  # returns False to indicate board is not full
         return True  # returns True if no empty cell is found
 
