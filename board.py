@@ -5,7 +5,6 @@ from cell import Cell
 
 
 class Board:
-    # This is Samuel. I'll add my comments later
     def __init__(self, width, height, screen, difficulty): # Samuel A.
         self.width = width
         self.height = height
