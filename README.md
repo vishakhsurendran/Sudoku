@@ -1,8 +1,6 @@
-# Sudoku-Project
+<H1> Sudoku </h1>
+This program executes a digital game of Sudoku.
 
-## Fork Repository Instructions
-### Steps:
-1. When you go to the github repository we provided, on the top right hand corner of the screen, there is a button that says "Fork". That will fork the repo to your own github 
-2. Use the link https://github.com/new/import to clone your forked repo to make it private. You will work on the project by adding your own files to this private repository.
+## Operating this Code
 
-
+Using this program requires the use of a Python IDE, such as Pycharm. After cloning this repository into an IDE, simply run the code and the game of Sudoku will be launched!
